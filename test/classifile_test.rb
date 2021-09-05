@@ -53,7 +53,7 @@ class ClassifileTest < Minitest::Test
 
     assert result != nil
     if result
-      assert result.path == "/Images/Favorites/Cats/Kitten"
+      assert_equal result.path , "/Images/Favorites/Cats/Kitten"
     end
   end
 
@@ -65,7 +65,7 @@ class ClassifileTest < Minitest::Test
 
     assert result != nil
     if result
-      assert result.path == "/Docs/1999"
+      assert_equal result.path , "/Docs/1999"
     end
   end
 
@@ -74,7 +74,7 @@ class ClassifileTest < Minitest::Test
     target_file = TargetFile.new("/tmp/kitten.zip")
     result = fs.run(target_file, "/", &@proc)
 
-    assert result == nil
+    assert_nil result
   end
 
 end
