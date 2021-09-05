@@ -1,0 +1,2 @@
+class NoGotcha < StandardError
+end
