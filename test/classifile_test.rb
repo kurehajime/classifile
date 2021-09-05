@@ -35,8 +35,7 @@ class ClassifileTest < Minitest::Test
       end
 
       dir "Docs" do
-        assert %w[txt pdf doc xls ppt docx xlsx pptx].include?(@file.extname)
-
+        assert %w[.txt .pdf .doc .xls .ppt .docx .xlsx .pptx].include?(@file.extname)
         dir @file.atime.year.to_s do
         end
       end
@@ -55,6 +54,18 @@ class ClassifileTest < Minitest::Test
     assert result != nil
     if result
       assert result.path == "/Images/Favorites/Cats/Kitten"
+    end
+  end
+
+  def test_year_dir
+    fs = Classify.new
+    target_file = TargetFile.new("/tmp/hello.txt")
+    target_file.atime = Time.local(1999, 11, 21, 12, 34, 56, 7)
+    result = fs.run(target_file, "/", &@proc)
+
+    assert result != nil
+    if result
+      assert result.path == "/Docs/1999"
     end
   end
 
