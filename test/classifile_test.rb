@@ -18,7 +18,7 @@ class ClassifileTest < Minitest::Test
             dir "Kitten" do
               assert @file.basename.downcase.include?("kitten")
             end
-            assert @file.basename.downcase.include?("kitten")
+            assert @file.basename.downcase.include?("cat")
           end
         end
 
