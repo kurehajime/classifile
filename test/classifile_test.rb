@@ -37,6 +37,15 @@ class ClassifileTest < Minitest::Test
     assert_equal result.path, "/Images/Favorites/Cats/Kittens" if result
   end
 
+  def test_empty_dir
+    fs = Classify.new
+    target_file = TargetFile.new("/tmp/dragon.png")
+    result = fs.run(target_file, "/", &@proc)
+
+    assert !result.nil?
+    assert_equal result.path, "/Images/Others" if result
+  end
+
   def test_year_dir
     fs = Classify.new
     target_file = TargetFile.new("/tmp/hello.txt")
