@@ -7,12 +7,9 @@ class Classify
   def run(target_file, to_path, &block)
     raise "TypeError" unless target_file.is_a?(TargetFile)
 
-    @file = target_file
-    @to_path = to_path
-
-    state = State.new(@file)
-    state.to_path = @to_path
-    state.save_name = @file.basename
+    state = State.new(target_file)
+    state.to_path = to_path
+    state.save_name = target_file.basename
 
     begin
       state.instance_eval(&block)

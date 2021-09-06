@@ -24,20 +24,22 @@ class State < Assert
   def dir(dir_name, &block)
     child = dup
     begin
-      child.to_path = File.join(@to_path, dir_name)
-      child.empty = false
+      child.clear File.join(@to_path, dir_name)
 
       child.instance_eval(&block)
 
       raise NoGotcha if child.empty?
 
-      gotcha = Gotcha.new
-      gotcha.path = child.to_path
-      gotcha.file_name = child.save_name
+      gotcha = Gotcha.new(child.to_path, child.save_name)
       raise gotcha
     rescue NoGotcha
       # Ignored
     end
+  end
+
+  def clear(to_path)
+    @to_path = to_path
+    @empty = false
   end
 
   def empty_dir
