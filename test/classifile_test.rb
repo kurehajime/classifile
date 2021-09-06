@@ -24,10 +24,8 @@ class ClassifileTest < Minitest::Test
     target_file = TargetFile.new("/tmp/dog.png")
     result = fs.run(target_file, "/", &@proc)
 
-    assert result != nil
-    if result
-      assert_equal result.path , "/Images/Favorites/Dogs"
-    end
+    assert !result.nil?
+    assert_equal result.path, "/Images/Favorites/Dogs" if result
   end
 
   def test_nest_dir
@@ -35,12 +33,9 @@ class ClassifileTest < Minitest::Test
     target_file = TargetFile.new("/tmp/kitten.png")
     result = fs.run(target_file, "/", &@proc)
 
-    assert result != nil
-    if result
-      assert_equal result.path , "/Images/Favorites/Cats/Kittens"
-    end
+    assert !result.nil?
+    assert_equal result.path, "/Images/Favorites/Cats/Kittens" if result
   end
-
 
   def test_year_dir
     fs = Classify.new
@@ -48,10 +43,8 @@ class ClassifileTest < Minitest::Test
     target_file.atime = Time.local(1999, 11, 21, 12, 34, 56, 7)
     result = fs.run(target_file, "/", &@proc)
 
-    assert result != nil
-    if result
-      assert_equal result.path , "/Documents/1999"
-    end
+    assert !result.nil?
+    assert_equal result.path, "/Documents/1999" if result
   end
 
   def test_can_not_save
@@ -61,5 +54,4 @@ class ClassifileTest < Minitest::Test
 
     assert_nil result
   end
-
 end

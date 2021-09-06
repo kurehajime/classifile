@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Extension Utility
 module Ext
   attr_accessor :extname
 

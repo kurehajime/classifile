@@ -1,6 +1,9 @@
-require 'minitest/assertions'
+# frozen_string_literal: true
 
+require "minitest/assertions"
+# Wrap of Minitest:Assertion
 class Assert
+  # include Minitest:Assertion
   class Asserter
     include Minitest::Assertions
     attr_accessor :assertions, :failure
@@ -17,15 +20,15 @@ class Assert
 
   def method_missing(name, *args)
     raise NoMethodError unless @assert.respond_to?(name)
+
     begin
       @assert.send name, *args
     rescue MiniTest::Assertion
-      raise NoGotcha.new
+      raise NoGotcha
     end
   end
 
-  def respond_to?(sym, *)
-    @assert.respond_to?(sym) || super
+  def respond_to_missing?(sym, *)
+    @assert.respond_to?(sym)
   end
-
 end

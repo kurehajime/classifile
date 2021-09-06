@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# classsify file
 class Classify
   attr_reader :file, :to_path
 
@@ -14,10 +17,9 @@ class Classify
     begin
       state.instance_eval(&block)
     rescue Gotcha => e
-      return e
+      e
     rescue NoGotcha
+      # Ignored
     end
-
-    return nil
   end
 end
