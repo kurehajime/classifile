@@ -28,7 +28,7 @@ dir "Sounds" do
 end
 
 dir "Documents" do
-  assert_includes %w[.txt .pdf .doc .xls .ppt .docx .xlsx .pptx], @file.extname
+  assert_includes %w[.txt .pdf .doc .xls .ppt .docx .xlsx .pptx], this.extname
   dir this.atime.year.to_s do
   end
 end
