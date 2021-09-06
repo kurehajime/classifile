@@ -1,4 +1,6 @@
-class State
+require 'classifile/assert'
+
+class State < Assert
   attr_accessor :to_path,
                 :save_name,
                 :empty,
@@ -9,14 +11,11 @@ class State
   def initialize(file)
     @file = file
     @empty = false
+    super()
   end
 
-  def assert(bool)
-    raise NoGotcha.new unless bool
-  end
-
-  def assert_not(bool)
-    raise NoGotcha.new if bool
+  def this
+    @file
   end
 
   def dir(dir_name, &block)
@@ -41,7 +40,7 @@ class State
     end
   end
 
-  def empty_dir()
+  def empty_dir
     @empty = true
   end
 

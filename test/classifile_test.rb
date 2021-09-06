@@ -4,41 +4,14 @@ require "test_helper"
 
 class ClassifileTest < Minitest::Test
   def setup
+    begin
+      f = File.open("./test/fixtures/dsl.rb")
+      dsl = f.read
+    ensure
+      f.close
+    end
     @proc = proc do
-      dir "Images" do
-        assert @file.is_image?
-        dir "Favorites" do
-          empty_dir
-
-          dir "Dogs" do
-            assert @file.basename.downcase.include?("dog")
-          end
-
-          dir "Cats" do
-            dir "Kitten" do
-              assert @file.basename.downcase.include?("kitten")
-            end
-            assert @file.basename.downcase.include?("cat")
-          end
-        end
-
-        dir "Others" do
-        end
-      end
-
-      dir "Movies" do
-        assert @file.is_movie?
-      end
-
-      dir "Sounds" do
-        assert @file.is_sound?
-      end
-
-      dir "Docs" do
-        assert %w[.txt .pdf .doc .xls .ppt .docx .xlsx .pptx].include?(@file.extname)
-        dir @file.atime.year.to_s do
-        end
-      end
+      eval dsl
     end
   end
 
@@ -46,16 +19,28 @@ class ClassifileTest < Minitest::Test
     refute_nil ::Classifile::VERSION
   end
 
-  def test_can_save
+  def test_assert_match
+    fs = Classify.new
+    target_file = TargetFile.new("/tmp/dog.png")
+    result = fs.run(target_file, "/", &@proc)
+
+    assert result != nil
+    if result
+      assert_equal result.path , "/Images/Favorites/Dogs"
+    end
+  end
+
+  def test_nest_dir
     fs = Classify.new
     target_file = TargetFile.new("/tmp/kitten.png")
     result = fs.run(target_file, "/", &@proc)
 
     assert result != nil
     if result
-      assert_equal result.path , "/Images/Favorites/Cats/Kitten"
+      assert_equal result.path , "/Images/Favorites/Cats/Kittens"
     end
   end
+
 
   def test_year_dir
     fs = Classify.new
@@ -65,7 +50,7 @@ class ClassifileTest < Minitest::Test
 
     assert result != nil
     if result
-      assert_equal result.path , "/Docs/1999"
+      assert_equal result.path , "/Documents/1999"
     end
   end
 
