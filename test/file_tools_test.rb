@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class FileToolsTest < Minitest::Test
-  def setup
-    FileTools.copy_mode # move -> copy
-  end
+  def setup; end
 
   def teardown
     FileUtils.remove_entry_secure("./sandbox/to") if File.exist?("./sandbox/to")
@@ -17,7 +17,7 @@ class FileToolsTest < Minitest::Test
   end
 
   def test_move_with_test_mode
-    FileTools.move("./sandbox/from/test.txt", "./sandbox/to/foo/bar/test.txt")
+    FileTools.move("./sandbox/from/test.txt", "./sandbox/to/foo/bar/test.txt", copy: true)
     assert File.exist?("./sandbox/to/foo/bar/test.txt")
   end
 end
