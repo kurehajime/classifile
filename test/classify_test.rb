@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class ClassifileTest < Minitest::Test
+class ClassifyTest < Minitest::Test
   def setup
     begin
       f = File.open("./sandbox/dsl/dsl.rb")
