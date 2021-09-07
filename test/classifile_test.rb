@@ -5,7 +5,7 @@ require "test_helper"
 class ClassifileTest < Minitest::Test
   def setup
     begin
-      f = File.open("./test/fixtures/dsl.rb")
+      f = File.open("./sandbox/dsl/dsl.rb")
       dsl = f.read
     ensure
       f.close
@@ -63,4 +63,9 @@ class ClassifileTest < Minitest::Test
 
     assert_nil result
   end
+
+  def test_temp
+
+  end
+
 end

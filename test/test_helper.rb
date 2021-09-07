@@ -2,6 +2,7 @@
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "classifile"
+require "classifile/file_tools"
 require "classifile/assert"
 require "classifile/classify"
 require "classifile/ext"

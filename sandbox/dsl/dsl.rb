@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 dir "Images" do
   assert this.image?
   dir "Favorites" do
