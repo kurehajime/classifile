@@ -11,6 +11,9 @@ class FileToolsTest < Minitest::Test
 
   def test_get_file_list
     assert FileTools.get_file_list("./sandbox/from/*")[0].include?("/sandbox/from/test.txt")
+    assert FileTools.get_file_list("./sandbox/from")[0].include?("/sandbox/from/test.txt")
+    assert FileTools.get_file_list("./sandbox/from/")[0].include?("/sandbox/from/test.txt")
+    assert FileTools.get_file_list("./sandbox/from/test.txt")[0].include?("/sandbox/from/test.txt")
   end
 
   def test_move_with_test_mode
