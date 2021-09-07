@@ -20,8 +20,8 @@ class ClassifyTest < Minitest::Test
   end
 
   def test_assert_match
-    fs = Classify.new
-    target_file = TargetFile.new("/tmp/dog.png")
+    fs = Classifile::Classify.new
+    target_file = Classifile::TargetFile.new("/tmp/dog.png")
     result = fs.run(target_file, "/", &@proc)
 
     assert !result.nil?
@@ -29,8 +29,8 @@ class ClassifyTest < Minitest::Test
   end
 
   def test_nest_dir
-    fs = Classify.new
-    target_file = TargetFile.new("/tmp/kitten.png")
+    fs = Classifile::Classify.new
+    target_file = Classifile::TargetFile.new("/tmp/kitten.png")
     result = fs.run(target_file, "/", &@proc)
 
     assert !result.nil?
@@ -38,8 +38,8 @@ class ClassifyTest < Minitest::Test
   end
 
   def test_empty_dir
-    fs = Classify.new
-    target_file = TargetFile.new("/tmp/dragon.png")
+    fs = Classifile::Classify.new
+    target_file = Classifile::TargetFile.new("/tmp/dragon.png")
     result = fs.run(target_file, "/", &@proc)
 
     assert !result.nil?
@@ -47,8 +47,8 @@ class ClassifyTest < Minitest::Test
   end
 
   def test_year_dir
-    fs = Classify.new
-    target_file = TargetFile.new("/tmp/hello.txt")
+    fs = Classifile::Classify.new
+    target_file = Classifile::TargetFile.new("/tmp/hello.txt")
     target_file.atime = Time.local(1999, 11, 21, 12, 34, 56, 7)
     result = fs.run(target_file, "/", &@proc)
 
@@ -57,8 +57,8 @@ class ClassifyTest < Minitest::Test
   end
 
   def test_can_not_save
-    fs = Classify.new
-    target_file = TargetFile.new("/tmp/kitten.zip")
+    fs = Classifile::Classify.new
+    target_file = Classifile::TargetFile.new("/tmp/kitten.zip")
     result = fs.run(target_file, "/", &@proc)
 
     assert_nil result

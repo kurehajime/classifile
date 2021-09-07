@@ -1,4 +1,6 @@
 # frozen_string_literal: true
 
-class NoGotcha < StandardError
+module Classifile
+  class NoGotcha < StandardError
+  end
 end
