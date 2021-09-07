@@ -37,6 +37,16 @@ class ClassifyTest < Minitest::Test
     assert_equal result.path, "/Images/Favorites/Cats/Kittens" if result
   end
 
+  def test_multi_names
+    fs = Classifile::Classify.new
+    target_file = Classifile::TargetFile.new("/tmp/penguin.png")
+    result = fs.run(target_file, "/", &@proc)
+
+    assert !result.nil?
+    assert_equal result.path, "/Images/Birds" if result
+
+  end
+
   def test_empty_dir
     fs = Classifile::Classify.new
     target_file = Classifile::TargetFile.new("/tmp/dragon.png")
@@ -64,8 +74,5 @@ class ClassifyTest < Minitest::Test
     assert_nil result
   end
 
-  def test_temp
-
-  end
-
+  def test_temp; end
 end

@@ -6,15 +6,22 @@ dir "Images" do
     empty_dir
 
     dir "Dogs" do
-      assert_match "dog", this.basename
+      include? "dog"
     end
 
     dir "Cats" do
       dir "Kittens" do
-        assert_match "kitten", this.basename
+        include? "kitten"
       end
-      assert_match "cat", this.basename
+      include? "cat"
     end
+  end
+
+  dir "Birds" do
+    include? "bird", "duck", "parrot", "cock", "rooster", "goose", "canary", "mallard", "wild duck", "sea gull",
+             "crow", "pheasant", "woodpecker", "peacock", "stork", "turkey", "sparrow", "hawk", "ostrich",
+             "swallow", "crane", "bird", "nest", "chickek", "chick", "swan", "pigeon", "lark", "owl", "flamingo",
+             "pelican", "penguin", "hen", "eagle"
   end
 
   dir "Others" do

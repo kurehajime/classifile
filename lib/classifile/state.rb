@@ -39,6 +39,13 @@ module Classifile
       end
     end
 
+    def include?(*patterns)
+      patterns.each do |p|
+        return if _include?(p)
+      end
+      raise NoGotcha
+    end
+
     def clear(to_path)
       @to_path = to_path
       @empty = false
@@ -46,6 +53,12 @@ module Classifile
 
     def empty_dir
       @empty = true
+    end
+
+    private
+
+    def _include?(pattern)
+      @file.basename.downcase.include?(pattern.downcase)
     end
   end
 end
