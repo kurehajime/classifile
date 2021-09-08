@@ -19,7 +19,7 @@ class ClassifyTest < Minitest::Test
     refute_nil ::Classifile::VERSION
   end
 
-  def test_assert_match
+  def test_simple_match
     fs = Classifile::Classify.new
     target_file = Classifile::TargetFile.new("/tmp/dog.png")
     result = fs.run(target_file, "/", &@proc)
