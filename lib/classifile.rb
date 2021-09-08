@@ -14,6 +14,5 @@ require_relative "classifile/state"
 
 # Classifile
 module Classifile
-  class Error < StandardError; end
   # Your code goes here...
 end
