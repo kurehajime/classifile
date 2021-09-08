@@ -60,7 +60,7 @@ temp/
 3. Run the command
 
 ```shell
-$ classifile dsl.rb -from "/temp/*" -to "/temp/to" 
+$ classifile dsl.rb -from "/temp/from/*" -to "/temp/to" 
 ```
 
 4. Done!
