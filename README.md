@@ -4,18 +4,6 @@ Classifile is a tool for classifying files by Ruby DSL.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'classifile'
-```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
     $ gem install classifile
 
 ## Usage
