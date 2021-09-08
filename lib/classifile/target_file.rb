@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "Pathname"
+require "pathname"
 module Classifile
   # Target File
   class TargetFile
