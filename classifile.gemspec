@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/classifile/version"
+require_relative "lib/classifile/const/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "classifile"
