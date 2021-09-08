@@ -37,14 +37,14 @@ dir "Sounds" do
 end
 
 dir "Documents" do |file|
-  end_with? ".txt", ".pdf" ,".doc", ".xls", ".ppt", ".docx", ".xlsx", ".pptx"
+  end_with? ".txt", ".pdf", ".doc", ".xls", ".ppt", ".docx", ".xlsx", ".pptx"
   if file.atime
     dir file.atime.year.to_s do
     end
   end
 end
 
-group "Years Directory" do |file|
+group "Years Zip Directory  ex: /2021/abc.zip " do |file|
   end_with? ".zip"
   if file.atime
     dir file.atime.year.to_s do

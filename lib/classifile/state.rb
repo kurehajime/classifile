@@ -3,7 +3,8 @@
 # Classifile
 module Classifile
   # State of Classify
-  class State < AssertChecker
+  class State
+    include AssertChecker
     include ExtensionChecker
     include NameChecker
 
