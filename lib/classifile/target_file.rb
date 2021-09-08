@@ -4,9 +4,7 @@ require "Pathname"
 module Classifile
   # Target File
   class TargetFile
-    attr_accessor :dirname, :full_path, :basename, :pure_basename, :atime, :ctime, :size
-
-    include Ext
+    attr_accessor :dirname, :full_path, :basename, :pure_basename, :atime, :ctime, :size, :extname
 
     def initialize(full_path)
       path_name = Pathname.new(full_path)

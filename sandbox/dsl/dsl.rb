@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 dir "Images" do
-  assert this.image?
+  image?
   dir "Favorites" do
-    empty_dir
+    empty_dir!
 
     dir "Dogs" do
       include? "dog"
@@ -29,15 +29,15 @@ dir "Images" do
 end
 
 dir "Movies" do
-  assert this.movie?
+  movie?
 end
 
 dir "Sounds" do
-  assert this.sound?
+  sound?
 end
 
 dir "Documents" do |file|
-  assert_includes %w[.txt .pdf .doc .xls .ppt .docx .xlsx .pptx], this.extname
+  end_with? ".txt", ".pdf" ,".doc", ".xls", ".ppt", ".docx", ".xlsx", ".pptx"
   if file.atime
     dir file.atime.year.to_s do
     end
@@ -45,7 +45,7 @@ dir "Documents" do |file|
 end
 
 group "Years Directory" do |file|
-  assert_includes %w[.zip], file.extname
+  end_with? ".zip"
   if file.atime
     dir file.atime.year.to_s do
     end

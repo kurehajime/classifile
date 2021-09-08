@@ -5,7 +5,7 @@ require "minitest/assertions"
 # Classifile
 module Classifile
   # Wrap of Minitest:Assertion
-  class Assert
+  class AssertChecker
     # include Minitest:Assertion
     class Asserter
       include Minitest::Assertions
@@ -22,7 +22,7 @@ module Classifile
     end
 
     def method_missing(name, *args)
-      raise NoMethodError unless @assert.respond_to?(name)
+      raise NoMethodError.new "Method '#{name}' not found", name unless @assert.respond_to?(name)
 
       begin
         @assert.send name, *args

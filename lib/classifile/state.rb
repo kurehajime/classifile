@@ -2,10 +2,11 @@
 
 # Classifile
 module Classifile
-  require "classifile/assert"
-
   # State of Classify
-  class State < Assert
+  class State < AssertChecker
+    include ExtensionChecker
+    include NameChecker
+
     attr_accessor :to_path,
                   :save_name,
                   :empty,
@@ -16,11 +17,9 @@ module Classifile
     def initialize(file)
       @file = file
       @empty = false
+      @extname = @file.extname
+      @name = @file.basename
       super()
-    end
-
-    def this
-      @file
     end
 
     def dir(dir_name, &block)
@@ -28,7 +27,7 @@ module Classifile
       begin
         child.clear File.join(@to_path, dir_name)
 
-        child.instance_exec(@file,&block)
+        child.instance_exec(@file, &block)
 
         raise NoGotcha if child.empty?
 
@@ -39,12 +38,12 @@ module Classifile
       end
     end
 
-    def group(group_name = "", &block)
+    def group(_group_name = "", &block)
       child = dup
       begin
         child.clear @to_path
 
-        child.instance_exec(@file,&block)
+        child.instance_exec(@file, &block)
 
         raise NoGotcha if child.empty?
       rescue NoGotcha
@@ -52,26 +51,13 @@ module Classifile
       end
     end
 
-    def include?(*patterns)
-      patterns.each do |p|
-        return if _include?(p)
-      end
-      raise NoGotcha
-    end
-
     def clear(to_path)
       @to_path = to_path
       @empty = false
     end
 
-    def empty_dir
+    def empty_dir!
       @empty = true
-    end
-
-    private
-
-    def _include?(pattern)
-      @file.basename.downcase.include?(pattern.downcase)
     end
   end
 end
