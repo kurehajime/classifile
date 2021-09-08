@@ -36,8 +36,18 @@ dir "Sounds" do
   assert this.sound?
 end
 
-dir "Documents" do
+dir "Documents" do |file|
   assert_includes %w[.txt .pdf .doc .xls .ppt .docx .xlsx .pptx], this.extname
-  dir this.atime.year.to_s do
+  if file.atime
+    dir file.atime.year.to_s do
+    end
+  end
+end
+
+group "Years Directory" do |file|
+  assert_includes %w[.zip], file.extname
+  if file.atime
+    dir file.atime.year.to_s do
+    end
   end
 end

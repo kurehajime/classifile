@@ -14,7 +14,7 @@ module Classifile
       state.save_name = target_file.basename
 
       begin
-        state.instance_eval(&block)
+        state.instance_exec(state.file, &block)
       rescue Gotcha => e
         e
       rescue NoGotcha

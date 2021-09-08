@@ -28,12 +28,25 @@ module Classifile
       begin
         child.clear File.join(@to_path, dir_name)
 
-        child.instance_eval(&block)
+        child.instance_exec(@file,&block)
 
         raise NoGotcha if child.empty?
 
         gotcha = Gotcha.new(child.to_path, child.save_name)
         raise gotcha
+      rescue NoGotcha
+        # Ignored
+      end
+    end
+
+    def group(group_name = "", &block)
+      child = dup
+      begin
+        child.clear @to_path
+
+        child.instance_exec(@file,&block)
+
+        raise NoGotcha if child.empty?
       rescue NoGotcha
         # Ignored
       end

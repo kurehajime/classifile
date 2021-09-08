@@ -44,7 +44,6 @@ class ClassifyTest < Minitest::Test
 
     assert !result.nil?
     assert_equal result.path, "/Images/Birds" if result
-
   end
 
   def test_empty_dir
@@ -66,9 +65,19 @@ class ClassifyTest < Minitest::Test
     assert_equal result.path, "/Documents/1999" if result
   end
 
+  def test_group
+    fs = Classifile::Classify.new
+    target_file = Classifile::TargetFile.new("/tmp/hello.zip")
+    target_file.atime = Time.local(1999, 11, 21, 12, 34, 56, 7)
+    result = fs.run(target_file, "/", &@proc)
+
+    assert !result.nil?
+    assert_equal result.path, "/1999" if result
+  end
+
   def test_can_not_save
     fs = Classifile::Classify.new
-    target_file = Classifile::TargetFile.new("/tmp/kitten.zip")
+    target_file = Classifile::TargetFile.new("/tmp/kitten.html")
     result = fs.run(target_file, "/", &@proc)
 
     assert_nil result
