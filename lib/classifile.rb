@@ -44,7 +44,7 @@ module Classifile
           arr << FromTo.new(from_file, File.join(result.path, result.file_name)) if result
         end
       end
-      
+
       arr
     end
   end
