@@ -8,7 +8,7 @@ require "optparse"
 
 opt = OptionParser.new
 opt.on("-d", "--dsl PATH", "dsl path") { |v| @dsl = v }
-opt.on("-f", "--from PATH", "source path") { |v| @from << v }
+opt.on("-f", "--from PATH", "source path") { |v| @froms << v }
 opt.on("-t", "--to PATH", "output path") { |v| @to = v }
 opt.on("-h", "--help", "show this help") do
   puts opt
