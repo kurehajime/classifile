@@ -3,15 +3,16 @@
 
 require "optparse"
 opt = OptionParser.new
-opt.on("-f", "--from PATH", "target path") { |v| @from = v }
 opt.on("-t", "--to PATH", "output path") { |v| @to = v }
+opt.on("-d", "--dsl PATH", "dsl path") { |v| @dsl = v }
 opt.on("-h", "--help", "show this help") do
   puts opt
   exit
 end
+
 opt.parse!(ARGV)
-@dsl =  ARGV[0] if ARGV.length.positive?
+@froms = ARGV
 
 require "classifile"
-exe =  Classifile::Execute.new
-exe.test @dsl ,@from ,@to
+exe = Classifile::Execute.new
+exe.test @dsl, @froms, @to

@@ -48,7 +48,7 @@ temp/
 3. Run the command
 
 ```shell
-$ classifile dsl.rb -from "/temp/from/*" -to "/temp/to" 
+$ classifile --dsl dsl.rb --to "/temp/to" "/temp/from/*" 
 ```
 
 4. Done!
