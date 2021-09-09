@@ -34,7 +34,7 @@ module Classifile
 
     def run(dsl_path, from_path, to_path)
       arr = []
-      dsl = read_dsl(dsl_path)
+      dsl = FileTools.read_dsl(dsl_path)
       cf = Classify.new
       FileTools.get_file_list(from_path).each do |from_file|
         result = cf.run(TargetFile.build_by_file(from_file), File.expand_path(to_path)) do
@@ -44,16 +44,6 @@ module Classifile
       end
 
       arr
-    end
-
-    def read_dsl(dsl_path)
-      begin
-        f = File.open(dsl_path)
-        dsl = f.read
-      ensure
-        f.close
-      end
-      dsl
     end
   end
 end

@@ -16,7 +16,12 @@ module Classifile
     end
 
     def self.build_by_file(full_path)
-      TargetFile.new(full_path)
+      fs = File.stat(full_path)
+      tf = TargetFile.new(full_path)
+      tf.atime = fs.atime
+      tf.ctime = fs.ctime
+      tf.size = fs.size
+      tf
     end
   end
 end

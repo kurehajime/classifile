@@ -4,19 +4,13 @@ require_relative "test_helper"
 
 class ClassifyTest < Minitest::Test
   def setup
-    begin
-      f = File.open("./sandbox/dsl/dsl.rb")
-      dsl = f.read
-    ensure
-      f.close
-    end
     @proc = proc do
-      eval dsl # rubocop:disable all
+      eval Classifile::FileTools.read_dsl("./sandbox/dsl/dsl.rb") # rubocop:disable all
     end
   end
 
   def test_this_has_a_version_number
-    refute_nil ::Classifile::VERSION
+    refute_nil Classifile::VERSION
   end
 
   def test_simple_match

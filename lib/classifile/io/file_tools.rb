@@ -8,7 +8,7 @@ module Classifile
       if !File.exist?(ex_path) # if foo/* pattern
         Dir.glob(ex_path)
       elsif File.ftype(ex_path) == "directory"
-        Dir.glob(File.join(ex_path, "*"))
+        Dir.glob(File.join(ex_path, "*")).sort
       else
         [ex_path]
       end
@@ -24,5 +24,16 @@ module Classifile
         FileUtils.move(src, dest)
       end
     end
+
+    def self.read_dsl(dsl_path)
+      begin
+        f = File.open(dsl_path)
+        dsl = f.read
+      ensure
+        f.close
+      end
+      dsl
+    end
+
   end
 end
