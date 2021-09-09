@@ -26,23 +26,32 @@ module Classifile
 
   # execute
   class Execute
-    def test(dsl_path, from_pathes, to_path)
-      classify(dsl_path, from_pathes, to_path).each do |ft|
+    def test(dsl_path, from_paths, to_path)
+      classify(dsl_path, from_paths, to_path).each do |ft|
         puts "mv \"#{ft.from}\"  \"#{ft.to}\" "
       end
     end
 
-    def classify(dsl_path, from_pathes, to_path)
+    def classify(dsl_path, from_paths, to_path)
       arr = []
       dsl = FileTools.read_dsl(dsl_path)
+      from_paths.each do |from_path|
+        arr |= _classify(dsl, from_path, to_path)
+      end
+
+      arr
+    end
+
+    private
+
+    def _classify(dsl, from_path, to_path)
+      arr = []
       cfy = Classify.new
-      from_pathes.each do |from_path|
-        FileTools.get_file_list(from_path).each do |from_file|
-          result = cfy.run(TargetFile.build_by_file(from_file), File.expand_path(to_path)) do
-            eval dsl # rubocop:disable all
-          end
-          arr << FromTo.new(from_file, File.join(result.path, result.file_name)) if result
+      FileTools.get_file_list(from_path).each do |from_file|
+        result = cfy.run(TargetFile.build_by_file(from_file), File.expand_path(to_path)) do
+          eval dsl # rubocop:disable all
         end
+        arr << FromTo.new(from_file, File.join(result.path, result.file_name)) if result
       end
 
       arr
