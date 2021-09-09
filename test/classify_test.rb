@@ -14,46 +14,46 @@ class ClassifyTest < Minitest::Test
   end
 
   def test_simple_match
-    fs = Classifile::Classify.new
+    cfy = Classifile::Classify.new
     target_file = Classifile::TargetFile.new("/tmp/dog.png")
-    result = fs.run(target_file, "/", &@proc)
+    result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
     assert_equal result.path, "/Images/Favorites/Dogs" if result
   end
 
   def test_nest_dir
-    fs = Classifile::Classify.new
+    cfy = Classifile::Classify.new
     target_file = Classifile::TargetFile.new("/tmp/kitten.png")
-    result = fs.run(target_file, "/", &@proc)
+    result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
     assert_equal result.path, "/Images/Favorites/Cats/Kittens" if result
   end
 
   def test_multi_names
-    fs = Classifile::Classify.new
+    cfy = Classifile::Classify.new
     target_file = Classifile::TargetFile.new("/tmp/penguin.png")
-    result = fs.run(target_file, "/", &@proc)
+    result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
     assert_equal result.path, "/Images/Birds" if result
   end
 
   def test_empty_dir
-    fs = Classifile::Classify.new
+    cfy = Classifile::Classify.new
     target_file = Classifile::TargetFile.new("/tmp/dragon.png")
-    result = fs.run(target_file, "/", &@proc)
+    result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
     assert_equal result.path, "/Images/Others" if result
   end
 
   def test_year_dir
-    fs = Classifile::Classify.new
+    cfy = Classifile::Classify.new
     target_file = Classifile::TargetFile.new("/tmp/hello.txt")
     target_file.atime = Time.local(1999, 11, 21, 12, 34, 56, 7)
-    result = fs.run(target_file, "/", &@proc)
+    result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
     assert_equal result.path, "/Documents/1999" if result
@@ -70,9 +70,9 @@ class ClassifyTest < Minitest::Test
   end
 
   def test_can_not_save
-    fs = Classifile::Classify.new
+    cfy = Classifile::Classify.new
     target_file = Classifile::TargetFile.new("/tmp/kitten.html")
-    result = fs.run(target_file, "/", &@proc)
+    result = cfy.run(target_file, "/", &@proc)
 
     assert_nil result
   end
