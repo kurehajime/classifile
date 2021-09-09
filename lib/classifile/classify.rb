@@ -15,10 +15,10 @@ module Classifile
 
       begin
         state.instance_exec(state.file, &block)
-      rescue Gotcha => e
-        e
       rescue NoGotcha
         # Ignored
+      rescue Gotcha => e
+        e
       end
     end
   end

@@ -14,5 +14,9 @@ module Classifile
       @pure_basename = path_name.basename(full_path).to_s.split(".")[0]
       @extname = path_name.extname
     end
+
+    def self.build_by_file(full_path)
+      TargetFile.new(full_path)
+    end
   end
 end
