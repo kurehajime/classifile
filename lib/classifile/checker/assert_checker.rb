@@ -17,9 +17,8 @@ module Classifile
       end
     end
 
-    @assert = Asserter.new
-
     def method_missing(name, *args)
+      @assert = Asserter.new if @assert.nil?
       raise NoMethodError.new "Method '#{name}' not found", name unless @assert.respond_to?(name)
 
       begin
