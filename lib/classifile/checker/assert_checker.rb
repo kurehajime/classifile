@@ -5,9 +5,9 @@ require "minitest/assertions"
 # Classifile
 module Classifile
   ##
-  # Minitest::Assertionsのラッパークラス。
-  # minitestに存在するAssert系メソッドが呼ばれた際に
-  # ラップしてNoGotchaエラーに変換する。
+  # Wrapper class for Minitest::Assertions.
+  # Wrap and convert to NoGotcha error
+  # when minitest's Assert method is called.
   module AssertChecker
     # include Minitest:Assertion
     class Asserter
@@ -21,7 +21,7 @@ module Classifile
     end
 
     ##
-    # minitestのassert系メソッドを提供
+    # Provides assert methods of minitest.
     def method_missing(name, *args)
       @assert = Asserter.new if @assert.nil?
       unless @assert.respond_to?(name) && name.to_s.include?("assert")

@@ -14,12 +14,10 @@ require_relative "classifile/state"
 
 # Classifile
 module Classifile
-
   # execute
   class Execute
-
     ##
-    # ファイルの移動元と移動先を表すクラス
+    # Source and destination classes for file
     class FromTo
       attr_accessor :from, :to
 
@@ -30,9 +28,9 @@ module Classifile
     end
 
     ##
-    # DSLを元にファイルを分類する。
-    # ただし実際にはファイルの移動を行わず
-    # mvコマンドを文字列として出力する。
+    # Classify the files by DSL.
+    # However, it does not actually move the file,
+    # but outputs the mv command as a string.
     def test(dsl_path, from_paths, to_path)
       classify(dsl_path, from_paths, to_path).each do |ft|
         puts "mv \"#{ft.from}\"  \"#{ft.to}\" "
@@ -40,7 +38,7 @@ module Classifile
     end
 
     ##
-    # DSLを元にファイルを分類してFromToクラスの配列を返す
+    # Classify files by DSL and return an array of FromTo classes.
     def classify(dsl_path, from_paths, to_path)
       arr = []
       dsl = FileTools.read_dsl(dsl_path)

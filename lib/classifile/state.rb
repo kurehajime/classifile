@@ -3,9 +3,9 @@
 # Classifile
 module Classifile
   ##
-  # 現在の状態を管理するクラス。
-  # DSLのコードはこのクラスのインスタンス上で実行される
-  # dirやgroupごとにStateが作られる。
+  # Class that manages the current state.
+  # The DSL code will be executed on an instance of this class
+  # A State is created for each dir and group.
   class State
     include AssertChecker
     include ExtensionChecker

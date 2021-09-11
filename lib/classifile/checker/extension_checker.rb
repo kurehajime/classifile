@@ -2,7 +2,7 @@
 
 module Classifile
   ##
-  # 拡張子をチェックしてファイルタイプを確認
+  # Check the file extension to see the file type.
   module ExtensionChecker
     attr_accessor :extname
 

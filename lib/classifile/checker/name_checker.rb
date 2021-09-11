@@ -2,12 +2,12 @@
 
 module Classifile
   ##
-  # ファイル名を確認
+  # Check the file name
   module NameChecker
     attr_accessor :name
 
     ##
-    # ファイル名が対象の文字のいずれかを含むか
+    # Whether the file name contains any of the target string
     def include?(*patterns)
       patterns.each do |p|
         return nil if _include?(p)
@@ -16,7 +16,7 @@ module Classifile
     end
 
     ##
-    # ファイル名が対象の文字のいずれかで終わるか
+    # Whether the file name ends with one of the target strings
     def end_with?(*patterns)
       patterns.each do |p|
         return nil if _end_with?(p)

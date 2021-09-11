@@ -2,8 +2,8 @@
 
 module Classifile
   ##
-  # 保存するディレクトリが見つかった時に投げられる例外
-  # DSLの外側で補足される
+  # Exception thrown when the directory to be saved is found.
+  # Caught on the outside of DSL
   class Gotcha < StandardError
     attr_accessor :path, :file_name
 

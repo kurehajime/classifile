@@ -18,6 +18,7 @@ class AssertCheckerTest < Minitest::Test
     end
   end
 
+  # noinspection RubyResolve
   def test_non_exist_assert_method
     checker = Checker.new
     checker.assert true

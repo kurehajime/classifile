@@ -34,6 +34,5 @@ module Classifile
       end
       dsl
     end
-
   end
 end

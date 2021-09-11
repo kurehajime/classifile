@@ -3,7 +3,7 @@
 # Classifile
 module Classifile
   ##
-  # DSLを元に保存先のディレクトリを特定する。
+  # Classify files by DSL
   class Classify
     attr_reader :file, :to_path
 
