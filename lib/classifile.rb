@@ -23,6 +23,9 @@ module Classifile
     def test(dsl_path, from_paths, to_path)
       classify(dsl_path, from_paths, to_path).each do |ft|
         puts "mv \"#{ft.from}\"  \"#{ft.to}\" "
+        ft.after_save_procs.each do |p|
+          p.call
+        end
       end
     end
 

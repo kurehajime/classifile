@@ -36,10 +36,18 @@ dir "Sounds" do
   sound?
 end
 
+def hello
+  p "hello"
+end
 dir "Documents" do |file|
   end_with? ".txt", ".pdf", ".doc", ".xls", ".ppt", ".docx", ".xlsx", ".pptx"
   if file.atime
     dir file.atime.year.to_s do
+      after_save :hello
+      after_save :good_by
+      def good_by
+        p "good by"
+      end
     end
   end
 end

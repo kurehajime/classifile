@@ -15,7 +15,8 @@ module Classifile
                   :save_name,
                   :empty,
                   :additional_filename,
-                  :file
+                  :file,
+                  :after_save_syms
     attr_reader :gotcha
     alias empty? empty
 
@@ -39,8 +40,7 @@ module Classifile
       else
         raise Failed if dir_name.empty? || child.empty?
 
-        @gotcha = FromTo.new(File.expand_path(@file.full_path),
-                             File.expand_path(File.join(child.to_path, child.save_name)))
+        gotcha_child(child)
       end
     rescue Failed
       # Ignored
@@ -54,12 +54,25 @@ module Classifile
       @empty = true
     end
 
+    def after_save(method_name)
+      @after_save_syms << method_name
+    end
+
     private
+
+    def gotcha_child(child)
+      @gotcha = FromTo.new(File.expand_path(@file.full_path),
+                           File.expand_path(File.join(child.to_path, child.save_name)))
+      child.after_save_syms.each do |sym|
+        @gotcha.after_save_procs << child.method(sym)
+      end
+    end
 
     def make_child(dir_name)
       child = clone
       child.to_path = File.join(@to_path, dir_name)
       child.empty = false
+      child.after_save_syms = []
       child
     end
   end
