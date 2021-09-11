@@ -18,11 +18,14 @@ class AssertCheckerTest < Minitest::Test
     end
   end
 
-  def test_no_assert
+  def test_non_exist_assert_method
     checker = Checker.new
     checker.assert true
     assert_raises NoMethodError do
       checker.assert_foo
+    end
+    assert_raises NoMethodError do
+      checker.foo_bar
     end
   end
 end

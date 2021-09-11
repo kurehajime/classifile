@@ -7,7 +7,7 @@ class ExtensionCheckerTest < Minitest::Test
     include Classifile::ExtensionChecker
   end
 
-  def test_extension
+  def test_check_extension
     checker = Checker.new
     checker.extname = ".jpg"
     checker.image?
