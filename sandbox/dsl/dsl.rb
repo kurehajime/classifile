@@ -36,18 +36,10 @@ dir "Sounds" do
   sound?
 end
 
-def hello
-  p "hello"
-end
 dir "Documents" do |file|
   end_with? ".txt", ".pdf", ".doc", ".xls", ".ppt", ".docx", ".xlsx", ".pptx"
   if file.atime
     dir file.atime.year.to_s do
-      after_save :hello
-      after_save :good_by
-      def good_by
-        p "good by"
-      end
     end
   end
 end
@@ -57,5 +49,14 @@ group "Years Zip Directory  ex: /2021/abc.zip " do |file|
   if file.atime
     dir file.atime.year.to_s do
     end
+  end
+end
+
+dir "Markdown" do |_file|
+  end_with? ".md"
+  after_save :notice
+  
+  def notice
+    puts "Please read #{file.to_path}"
   end
 end

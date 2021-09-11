@@ -19,7 +19,7 @@ class ClassifyTest < Minitest::Test
     result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
-    assert_includes result.to ,"/Images/Favorites/Dogs"   if result
+    assert_includes result.to, "/Images/Favorites/Dogs" if result
   end
 
   def test_nest_dir
@@ -75,6 +75,15 @@ class ClassifyTest < Minitest::Test
     result = cfy.run(target_file, "/", &@proc)
 
     assert_nil result
+  end
+
+  def test_after_save
+    cfy = Classifile::Classify.new
+    target_file = Classifile::TargetFile.new("/tmp/hello.md")
+    result = cfy.run(target_file, "/", &@proc)
+
+    assert !result.nil?
+    assert_equal 1, result.after_save_procs.length
   end
 
   def test_temp; end

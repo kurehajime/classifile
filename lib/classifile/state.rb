@@ -71,6 +71,7 @@ module Classifile
     def make_child(dir_name)
       child = clone
       child.to_path = File.join(@to_path, dir_name)
+      child.file.to_path = File.join(child.to_path, child.file.basename)
       child.empty = false
       child.after_save_syms = []
       child

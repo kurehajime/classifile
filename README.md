@@ -173,7 +173,7 @@ methods.
 
 ```ruby
 dir "Archives" do |file|
-   assert_includes [".zip",".gz"], file.extname
+   assert_includes %w[.zip .gz], file.extname
 end
 ```
 
@@ -201,13 +201,35 @@ end
 `doc.png -> /Images/Dogs/dog.png`
 `cat.png ->  (not saved) `
 
+#### after_save
+
+Execute the method after the save is complete.
+
+```ruby
+dir "Markdown" do |_file|
+  end_with? ".md"
+  after_save :hello
+  
+  def hello
+    puts "hello"
+  end
+end
+```
+
+`hello.md -> /Markdown/hello.md`
+
+and 
+
+The output is "hello".
+
+
 ### Block argument
 
 File information can be obtained by block argument.
 
 ```ruby
 dir "Archives" do |file|
-   assert_includes [".zip",".gz"], file.extname
+   assert_includes %w[.zip .gz], file.extname
 end
 ```
 
@@ -220,6 +242,8 @@ end
 |  atime  |  Date and time of made  |
 |  ctime  |  Date and time of change  |
 |  size  |  File size  |
+|  to_path  |  Paths that will be saved  |
+
 
 
 ## Development
