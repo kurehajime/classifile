@@ -19,7 +19,7 @@ module Classifile
       rescue NoGotcha
         # Ignored
       rescue Gotcha => e
-        e
+        FromTo.new(File.expand_path(target_file.full_path), File.expand_path(File.join(e.path, e.file_name)) )
       end
     end
   end

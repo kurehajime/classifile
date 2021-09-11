@@ -8,6 +8,7 @@ require_relative "classifile/checker/name_checker"
 require_relative "classifile/checker/extension_checker"
 require_relative "classifile/checker/assert_checker"
 require_relative "classifile/io/file_tools"
+require_relative "classifile/from_to"
 require_relative "classifile/classify"
 require_relative "classifile/target_file"
 require_relative "classifile/state"
@@ -16,17 +17,6 @@ require_relative "classifile/state"
 module Classifile
   # execute
   class Execute
-    ##
-    # Source and destination classes for file
-    class FromTo
-      attr_accessor :from, :to
-
-      def initialize(from, to)
-        @from = from
-        @to = to
-      end
-    end
-
     ##
     # Classify the files by DSL.
     # However, it does not actually move the file,
@@ -58,7 +48,7 @@ module Classifile
         result = cfy.run(TargetFile.build_by_file(from_file), File.expand_path(to_path)) do
           eval dsl # rubocop:disable all
         end
-        arr << FromTo.new(from_file, File.join(result.path, result.file_name)) if result
+        arr << result if result
       end
 
       arr

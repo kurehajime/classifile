@@ -19,7 +19,7 @@ class ClassifyTest < Minitest::Test
     result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
-    assert_equal result.path, "/Images/Favorites/Dogs" if result
+    assert_includes result.to ,"/Images/Favorites/Dogs"   if result
   end
 
   def test_nest_dir
@@ -28,7 +28,7 @@ class ClassifyTest < Minitest::Test
     result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
-    assert_equal result.path, "/Images/Favorites/Cats/Kittens" if result
+    assert_includes result.to, "/Images/Favorites/Cats/Kittens" if result
   end
 
   def test_multi_names
@@ -37,7 +37,7 @@ class ClassifyTest < Minitest::Test
     result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
-    assert_equal result.path, "/Images/Birds" if result
+    assert_includes result.to, "/Images/Birds" if result
   end
 
   def test_empty_dir
@@ -46,7 +46,7 @@ class ClassifyTest < Minitest::Test
     result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
-    assert_equal result.path, "/Images/Others" if result
+    assert_includes result.to, "/Images/Others" if result
   end
 
   def test_year_dir
@@ -56,7 +56,7 @@ class ClassifyTest < Minitest::Test
     result = cfy.run(target_file, "/", &@proc)
 
     assert !result.nil?
-    assert_equal result.path, "/Documents/1999" if result
+    assert_includes result.to, "/Documents/1999" if result
   end
 
   def test_group
@@ -66,7 +66,7 @@ class ClassifyTest < Minitest::Test
     result = fs.run(target_file, "/", &@proc)
 
     assert !result.nil?
-    assert_equal result.path, "/1999" if result
+    assert_includes result.to, "/1999" if result
   end
 
   def test_can_not_save
