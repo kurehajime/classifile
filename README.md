@@ -70,7 +70,120 @@ temp/
 
 ## Syntax
 
-(TODO)
+### Classifile rules.
+
+1. The hierarchy of the dir block represents the directory hierarchy.
+2. If the check fails, exit the block.
+3. When It complete a block to the end, it will be saved in that directory.
+
+### Block methods
+
+#### dir block
+
+`dir` block represents a directory.
+A dir block can also be nested.
+
+```ruby
+dir "Images" do
+   # /Images 
+   image?
+   dir "Dogs" do
+      # /Images/Dogs
+      include? "dog"
+   end
+end
+```
+
+#### group block
+
+`group` block is a group that does not have a directory.
+
+```ruby
+group "Animals" do
+   dir "Dogs" do
+      # /Dogs
+      include? "dog"
+   end
+end
+```
+
+## Check methods
+
+The check method checks if the file should be stored in that directory.
+If it does not pass the check, it will leave the block immediately.
+
+### include?
+
+`include?` method checks if the file name contains one of the strings.
+
+```ruby
+dir "Dogs" do
+   # /Dogs
+   include? "dog"
+end
+
+dir "Cats" do
+   # /Cats
+   include? "cat" , "kitten"
+end
+```
+
+### end_with?
+
+`end_with?` method checks if the file name ends with one of the string.
+
+```ruby
+dir "Archives" do
+   # /Archives 
+   end_with? ".zip" , ".gz"
+end
+```
+
+### image? / sound? / movie?
+
+`image?` method checks if a file is an image or not.
+
+`sound?` method checks if a file is an sound or not.
+
+`movie?` method checks if a file is an movie or not.
+
+```ruby
+dir "Images" do
+   # /Images 
+   image?
+end
+```
+
+### assert / assert_nil / assert_includes ...
+
+You can also use the [minitest](https://docs.ruby-lang.org/ja/2.1.0/class/MiniTest=3a=3aAssertions.html)
+methods.
+
+```ruby
+dir "Archives" do |file|
+   # /Archives 
+   assert_includes [".zip",".gz"], file.extname
+end
+```
+
+## Other methods
+
+### empty_dir!
+
+If `empty_dir!` is executed, the file will not be saved directly under that directory.
+
+In this example, `dog.png` will be saved in `Images/Dogs`. In this example, `dog.png` will be saved in `Images/Dogs`, but `cat.png` will not be saved anywhere.
+
+```ruby
+dir "Images" do
+   # /Images 
+   image?
+   dir "Dogs" do
+      # /Images/Dogs
+      include? "dog"
+   end
+end
+```
 
 ## Development
 
