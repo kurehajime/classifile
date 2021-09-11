@@ -85,14 +85,14 @@ A dir block can also be nested.
 
 ```ruby
 dir "Images" do
-   # /Images 
    image?
    dir "Dogs" do
-      # /Images/Dogs
       include? "dog"
    end
 end
 ```
+
+`dog.png -> /Images/Dogs/dog.png`
 
 #### group block
 
@@ -101,11 +101,12 @@ end
 ```ruby
 group "Animals" do
    dir "Dogs" do
-      # /Dogs
       include? "dog"
    end
 end
 ```
+
+`dog.png -> /Dogs/dog.png`
 
 ## Check methods
 
@@ -118,15 +119,18 @@ If it does not pass the check, it will leave the block immediately.
 
 ```ruby
 dir "Dogs" do
-   # /Dogs
    include? "dog"
 end
 
 dir "Cats" do
-   # /Cats
    include? "cat" , "kitten"
 end
 ```
+
+`dog.png -> /Dogs/dog.png`
+`cat.png -> /Cats/cat.png`
+`kitten.png -> /Cats/kitten.png`
+
 
 ### end_with?
 
@@ -134,10 +138,11 @@ end
 
 ```ruby
 dir "Archives" do
-   # /Archives 
    end_with? ".zip" , ".gz"
 end
 ```
+
+`doc.zip -> /Archives/doc.zip`
 
 ### image? / sound? / movie?
 
@@ -149,10 +154,17 @@ end
 
 ```ruby
 dir "Images" do
-   # /Images 
+   image?
+end
+
+dir "Movies" do
    image?
 end
 ```
+
+`cat.png -> /Images/cat.png`
+`dog.avi -> /Movies/dog.avi`
+
 
 ### assert / assert_nil / assert_includes ...
 
@@ -161,10 +173,12 @@ methods.
 
 ```ruby
 dir "Archives" do |file|
-   # /Archives 
    assert_includes [".zip",".gz"], file.extname
 end
 ```
+
+`doc.zip -> /Archives/doc.zip`
+
 
 ## Other methods
 
@@ -176,14 +190,16 @@ In this example, `dog.png` will be saved in `Images/Dogs`. In this example, `dog
 
 ```ruby
 dir "Images" do
-   # /Images 
+   empty_dir!
    image?
    dir "Dogs" do
-      # /Images/Dogs
       include? "dog"
    end
 end
 ```
+
+`doc.png -> /Images/Dogs/dog.png`
+`cat.png ->  (not saved) `
 
 ## Development
 
