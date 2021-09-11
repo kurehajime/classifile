@@ -7,15 +7,15 @@ module Classifile
     attr_accessor :extname
 
     def image?
-      raise NoGotcha unless FILE_TYPE_IMAGE.include?(@extname)
+      raise Failed unless FILE_TYPE_IMAGE.include?(@extname) unless @gotcha
     end
 
     def sound?
-      raise NoGotcha unless FILE_TYPE_SOUND.include?(@extname)
+      raise Failed unless FILE_TYPE_SOUND.include?(@extname) unless @gotcha
     end
 
     def movie?
-      raise NoGotcha unless FILE_TYPE_MOVIE.include?(@extname)
+      raise Failed unless FILE_TYPE_MOVIE.include?(@extname) unless @gotcha
     end
   end
 end

@@ -12,7 +12,7 @@ module Classifile
       patterns.each do |p|
         return nil if _include?(p)
       end
-      raise NoGotcha
+      raise Failed unless @gotcha
     end
 
     ##
@@ -21,7 +21,7 @@ module Classifile
       patterns.each do |p|
         return nil if _end_with?(p)
       end
-      raise NoGotcha
+      raise Failed unless @gotcha
     end
 
     private

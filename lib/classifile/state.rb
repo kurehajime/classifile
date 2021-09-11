@@ -16,6 +16,7 @@ module Classifile
                   :empty,
                   :additional_filename,
                   :file
+    attr_reader :gotcha
     alias empty? empty
 
     def initialize(file)
@@ -23,20 +24,27 @@ module Classifile
       @empty = false
       @extname = @file.extname
       @name = @file.basename
+      @gotcha = nil
       super()
     end
 
     def dir(dir_name, &block)
+      return if @gotcha
       child = dup
       begin
         child.clear File.join(@to_path, dir_name)
 
         child.instance_exec(@file, &block)
-        raise NoGotcha if dir_name.empty?
-        raise NoGotcha if child.empty?
 
-        raise Gotcha.new(child.to_path, child.save_name)
-      rescue NoGotcha
+        if child.gotcha
+          @gotcha = child.gotcha
+        else
+          raise Failed if dir_name.empty?
+          raise Failed if child.empty?
+
+          @gotcha = FromTo.new(File.expand_path(@file.full_path), File.expand_path(File.join(child.to_path, child.save_name)) )
+        end
+      rescue Failed
         # Ignored
       end
     end

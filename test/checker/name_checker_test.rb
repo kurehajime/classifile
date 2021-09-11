@@ -11,7 +11,7 @@ class NameCheckerTest < Minitest::Test
     checker = Checker.new
     checker.name = "hoge"
     checker.include? "hoge"
-    assert_raises Classifile::NoGotcha do
+    assert_raises Classifile::Failed do
       checker.include? "foo", "bar"
     end
   end
@@ -20,7 +20,7 @@ class NameCheckerTest < Minitest::Test
     checker = Checker.new
     checker.name = "hoge.txt"
     checker.end_with? ".txt"
-    assert_raises Classifile::NoGotcha do
+    assert_raises Classifile::Failed do
       checker.end_with? "hoge", ".png", ".zip"
     end
   end

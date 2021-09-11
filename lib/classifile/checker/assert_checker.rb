@@ -6,7 +6,7 @@ require "minitest/assertions"
 module Classifile
   ##
   # Wrapper class for Minitest::Assertions.
-  # Wrap and convert to NoGotcha error
+  # Wrap and convert to Failed error
   # when minitest's Assert method is called.
   module AssertChecker
     # include Minitest:Assertion
@@ -31,7 +31,7 @@ module Classifile
       begin
         @assert.send name, *args
       rescue MiniTest::Assertion
-        raise NoGotcha
+        raise Failed unless @gotcha
       end
     end
 

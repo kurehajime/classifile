@@ -4,6 +4,6 @@ module Classifile
   ##
   # Exception raised when a check fails.
   # Exit the dir block it is currently in.
-  class NoGotcha < StandardError
+  class Failed < StandardError
   end
 end

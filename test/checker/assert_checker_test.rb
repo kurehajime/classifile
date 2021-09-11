@@ -10,10 +10,10 @@ class AssertCheckerTest < Minitest::Test
   def test_assert
     checker = Checker.new
     checker.assert true
-    assert_raises Classifile::NoGotcha do
+    assert_raises Classifile::Failed do
       checker.assert false
     end
-    assert_raises Classifile::NoGotcha do
+    assert_raises Classifile::Failed do
       checker.assert_includes %w[Pikachu Dragonite Slowbro Pigeotto], "imakuni?"
     end
   end

@@ -11,10 +11,10 @@ class ExtensionCheckerTest < Minitest::Test
     checker = Checker.new
     checker.extname = ".jpg"
     checker.image?
-    assert_raises Classifile::NoGotcha do
+    assert_raises Classifile::Failed do
       checker.sound?
     end
-    assert_raises Classifile::NoGotcha do
+    assert_raises Classifile::Failed do
       checker.movie?
     end
   end

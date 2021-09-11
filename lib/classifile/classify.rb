@@ -16,11 +16,10 @@ module Classifile
 
       begin
         state.instance_exec(state.file, &block)
-      rescue NoGotcha
+      rescue Failed
         # Ignored
-      rescue Gotcha => e
-        FromTo.new(File.expand_path(target_file.full_path), File.expand_path(File.join(e.path, e.file_name)) )
       end
+      state.gotcha
     end
   end
 end
