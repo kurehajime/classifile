@@ -30,36 +30,37 @@ module Classifile
 
     def dir(dir_name, &block)
       return if @gotcha
-      child = dup
-      begin
-        child.clear File.join(@to_path, dir_name)
 
-        child.instance_exec(@file, &block)
+      child = make_child dir_name
+      child.instance_exec(@file, &block)
 
-        if child.gotcha
-          @gotcha = child.gotcha
-        else
-          raise Failed if dir_name.empty?
-          raise Failed if child.empty?
+      if child.gotcha
+        @gotcha = child.gotcha
+      else
+        raise Failed if dir_name.empty? || child.empty?
 
-          @gotcha = FromTo.new(File.expand_path(@file.full_path), File.expand_path(File.join(child.to_path, child.save_name)) )
-        end
-      rescue Failed
-        # Ignored
+        @gotcha = FromTo.new(File.expand_path(@file.full_path),
+                             File.expand_path(File.join(child.to_path, child.save_name)))
       end
+    rescue Failed
+      # Ignored
     end
 
     def group(_group_name = "", &block)
       dir("", &block)
     end
 
-    def clear(to_path)
-      @to_path = to_path
-      @empty = false
-    end
-
     def empty_dir!
       @empty = true
+    end
+
+    private
+
+    def make_child(dir_name)
+      child = clone
+      child.to_path = File.join(@to_path, dir_name)
+      child.empty = false
+      child
     end
   end
 end
