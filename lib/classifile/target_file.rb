@@ -2,7 +2,8 @@
 
 require "pathname"
 module Classifile
-  # Target File
+  ##
+  # 対象ファイルを表すクラス
   class TargetFile
     attr_accessor :dirname, :full_path, :basename, :pure_basename, :atime, :ctime, :size, :extname
 

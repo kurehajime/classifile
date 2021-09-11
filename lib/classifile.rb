@@ -14,24 +14,33 @@ require_relative "classifile/state"
 
 # Classifile
 module Classifile
-  # from and to
-  class FromTo
-    attr_accessor :from, :to
-
-    def initialize(from, to)
-      @from = from
-      @to = to
-    end
-  end
 
   # execute
   class Execute
+
+    ##
+    # ファイルの移動元と移動先を表すクラス
+    class FromTo
+      attr_accessor :from, :to
+
+      def initialize(from, to)
+        @from = from
+        @to = to
+      end
+    end
+
+    ##
+    # DSLを元にファイルを分類する。
+    # ただし実際にはファイルの移動を行わず
+    # mvコマンドを文字列として出力する。
     def test(dsl_path, from_paths, to_path)
       classify(dsl_path, from_paths, to_path).each do |ft|
         puts "mv \"#{ft.from}\"  \"#{ft.to}\" "
       end
     end
 
+    ##
+    # DSLを元にファイルを分類してFromToクラスの配列を返す
     def classify(dsl_path, from_paths, to_path)
       arr = []
       dsl = FileTools.read_dsl(dsl_path)

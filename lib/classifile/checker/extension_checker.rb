@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Classifile
-  # Extension Utility
+  ##
+  # 拡張子をチェックしてファイルタイプを確認
   module ExtensionChecker
     attr_accessor :extname
 

@@ -15,3 +15,6 @@ Layout/LineLength:
 Metrics/MethodLength:
   Exclude:
     - '*_test.rb'
+
+AsciiComments:
+  Enabled: false

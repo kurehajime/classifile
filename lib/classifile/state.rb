@@ -2,7 +2,10 @@
 
 # Classifile
 module Classifile
-  # State of Classify
+  ##
+  # 現在の状態を管理するクラス。
+  # DSLのコードはこのクラスのインスタンス上で実行される
+  # dirやgroupごとにStateが作られる。
   class State
     include AssertChecker
     include ExtensionChecker

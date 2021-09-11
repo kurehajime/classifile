@@ -4,7 +4,10 @@ require "minitest/assertions"
 
 # Classifile
 module Classifile
-  # Wrap of Minitest:Assertion
+  ##
+  # Minitest::Assertionsのラッパークラス。
+  # minitestに存在するAssert系メソッドが呼ばれた際に
+  # ラップしてNoGotchaエラーに変換する。
   module AssertChecker
     # include Minitest:Assertion
     class Asserter
@@ -17,9 +20,13 @@ module Classifile
       end
     end
 
+    ##
+    # minitestのassert系メソッドを提供
     def method_missing(name, *args)
       @assert = Asserter.new if @assert.nil?
-      raise NoMethodError.new "Method '#{name}' not found", name unless @assert.respond_to?(name)
+      unless @assert.respond_to?(name) && name.to_s.include?("assert")
+        raise NoMethodError.new("Method '#{name}' not found", name)
+      end
 
       begin
         @assert.send name, *args
@@ -29,7 +36,11 @@ module Classifile
     end
 
     def respond_to_missing?(sym, *)
-      @assert.respond_to?(sym)
+      if sym.to_s.include?("assert")
+        @assert.respond_to?(sym) ? true : super
+      else
+        super
+      end
     end
   end
 end
