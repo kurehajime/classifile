@@ -108,12 +108,12 @@ end
 
 `dog.png -> /Dogs/dog.png`
 
-## Check methods
+### Check methods
 
 The check method checks if the file should be stored in that directory.
 If it does not pass the check, it will leave the block immediately.
 
-### include?
+#### include?
 
 `include?` method checks if the file name contains one of the strings.
 
@@ -132,7 +132,7 @@ end
 `kitten.png -> /Cats/kitten.png`
 
 
-### end_with?
+#### end_with?
 
 `end_with?` method checks if the file name ends with one of the string.
 
@@ -144,7 +144,7 @@ end
 
 `doc.zip -> /Archives/doc.zip`
 
-### image? / sound? / movie?
+#### image? / sound? / movie?
 
 `image?` method checks if a file is an image or not.
 
@@ -166,7 +166,7 @@ end
 `dog.avi -> /Movies/dog.avi`
 
 
-### assert / assert_nil / assert_includes ...
+#### assert / assert_nil / assert_includes ...
 
 You can also use the [minitest](https://docs.ruby-lang.org/ja/2.1.0/class/MiniTest=3a=3aAssertions.html)
 methods.
@@ -180,9 +180,9 @@ end
 `doc.zip -> /Archives/doc.zip`
 
 
-## Other methods
+### Other methods
 
-### empty_dir!
+#### empty_dir!
 
 If `empty_dir!` is executed, the file will not be saved directly under that directory.
 
@@ -200,6 +200,27 @@ end
 
 `doc.png -> /Images/Dogs/dog.png`
 `cat.png ->  (not saved) `
+
+### Block argument
+
+File information can be obtained by block argument.
+
+```ruby
+dir "Archives" do |file|
+   assert_includes [".zip",".gz"], file.extname
+end
+```
+
+|  Property  |  Description  |
+| ---- | ---- |
+|  dirname  |  The directory before the move  |
+|  basename  |  File name  |
+|  pure_basename  |  File name without extension  |
+|  extname  |  Extension  |
+|  atime  |  Date and time of made  |
+|  ctime  |  Date and time of change  |
+|  size  |  File size  |
+
 
 ## Development
 
