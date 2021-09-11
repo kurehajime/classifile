@@ -55,7 +55,7 @@ end
 dir "Markdown" do |_file|
   end_with? ".md"
   after_save :notice
-  
+
   def notice
     puts "Please read #{file.to_path}"
   end

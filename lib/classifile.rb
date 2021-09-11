@@ -23,6 +23,24 @@ module Classifile
     def test(dsl_path, from_paths, to_path)
       classify(dsl_path, from_paths, to_path).each do |ft|
         puts "mv \"#{ft.from}\"  \"#{ft.to}\" "
+      end
+    end
+
+    ##
+    # Classify the files by DSL.
+    def move(dsl_path, from_paths, to_path)
+      classify(dsl_path, from_paths, to_path).each do |ft|
+        FileTools.move(ft.from, ft.to)
+        ft.after_save_procs.each(&:call)
+      end
+    end
+
+    ##
+    # Classify the files by DSL.
+    # However, the original file will remain.
+    def copy(dsl_path, from_paths, to_path)
+      classify(dsl_path, from_paths, to_path).each do |ft|
+        FileTools.move(ft.from, ft.to, copy: true)
         ft.after_save_procs.each(&:call)
       end
     end
