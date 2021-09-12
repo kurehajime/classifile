@@ -7,10 +7,12 @@ require "optparse"
 @froms = []
 
 opt = OptionParser.new
-opt.on("-d", "--dsl PATH", "dsl path") { |v| @dsl = v }
-opt.on("-f", "--from PATH", "source path") { |v| @froms << v }
-opt.on("-t", "--to PATH", "output path") { |v| @to = v }
-opt.on("-h", "--help", "show this help") do
+opt.on("-d", "--dsl PATH", "Dsl path") { |v| @dsl = v }
+opt.on("-f", "--from PATH", "Source path") { |v| @froms << v }
+opt.on("-t", "--to PATH", "Output path") { |v| @to = v }
+opt.on("-p", "--preview", "Preview Mode(don't move,don't copy)") { |v| @preview = v }
+opt.on("-c", "--copy", "Copy Mode(don't move)") { |v| @copy = v }
+opt.on("-h", "--help", "Show this help") do
   puts opt
   exit
 end
@@ -20,4 +22,11 @@ opt.parse!(ARGV)
 
 require "classifile"
 exe = Classifile::Execute.new
-exe.test @dsl, @froms, @to
+
+if @preview
+  exe.test @dsl, @froms, @to
+elsif @copy
+  exe.copy @dsl, @froms, @to
+else
+  exe.move @dsl, @froms, @to
+end
