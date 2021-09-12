@@ -33,8 +33,10 @@ module Classifile
       rescue StandardError
         p $ERROR_INFO
       ensure
+        # noinspection RubyScope
         f&.close
       end
+      # noinspection RubyScope
       dsl
     end
   end
