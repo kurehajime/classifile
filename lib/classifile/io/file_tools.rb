@@ -29,6 +29,8 @@ module Classifile
       begin
         f = File.open(dsl_path)
         dsl = f.read
+      rescue e
+        p e
       ensure
         f.close
       end
