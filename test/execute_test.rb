@@ -30,7 +30,7 @@ class ExecuteTest < Minitest::Test
     exe = Classifile::Execute.new
 
     %w[./sandbox/from/*].each do |from|
-      std = capture_io do
+      capture_io do
         exe.copy "./sandbox/dsl/dsl.rb", from, "./sandbox/to"
       end
     end
@@ -41,7 +41,7 @@ class ExecuteTest < Minitest::Test
     exe = Classifile::Execute.new
     FileUtils.cp_r("./sandbox/from", "./sandbox/temp")
     %w[./sandbox/temp/*].each do |from|
-      std = capture_io do
+      capture_io do
         exe.move "./sandbox/dsl/dsl.rb", from, "./sandbox/to"
       end
     end
