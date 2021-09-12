@@ -48,5 +48,4 @@ class ExecuteTest < Minitest::Test
     assert File.exist?("./sandbox/to/Markdown/hello.md")
     assert !File.exist?("./sandbox/temp/hello.md")
   end
-
 end

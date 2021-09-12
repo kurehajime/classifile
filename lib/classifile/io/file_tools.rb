@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "English"
 module Classifile
   # File Utility
   class FileTools
@@ -29,10 +30,10 @@ module Classifile
       begin
         f = File.open(dsl_path)
         dsl = f.read
-      rescue e
-        p e
+      rescue StandardError
+        p $ERROR_INFO
       ensure
-        f.close
+        f&.close
       end
       dsl
     end

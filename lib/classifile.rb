@@ -15,5 +15,4 @@ require_relative "classifile/execute"
 
 # Classifile
 module Classifile
-
 end
