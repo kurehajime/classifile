@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     classifile (0.1.0)
+      minitest (>= 5.0)
 
 GEM
   remote: https://rubygems.org/
