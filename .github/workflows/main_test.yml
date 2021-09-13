@@ -1,5 +1,11 @@
 name: main branch test
 on: [push]
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
   test:
     strategy:
