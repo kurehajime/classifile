@@ -86,5 +86,7 @@ class ClassifyTest < Minitest::Test
     assert_equal 1, result.after_save_procs.length
   end
 
-  def test_temp; end
+  def test_temp
+    assert false
+  end
 end
