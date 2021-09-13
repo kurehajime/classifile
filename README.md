@@ -70,6 +70,19 @@ temp/
 　　└─dancing_cat.mpg
 ```
 
+## Options
+
+Command line options are here.
+
+|  Sort option  |  Long option  | Description  |
+| ---- | ---- |---- |
+|  -d  *PATH* |  --dsl *PATH*  |DSL path  |
+|  -f *PATH* |  --from *PATH*  |Source directory path  |
+|  -t *PATH* |  --to *PATH*  |Output directory path  |
+|  -p  |  --preview  |Preview Mode(don't move,don't copy)  |
+|  -c  |  --copy  |Copy Mode(don't move)  |
+|  -h  |  --help  |Show this help  |
+
 ## Syntax
 
 ### Classifile rules.
