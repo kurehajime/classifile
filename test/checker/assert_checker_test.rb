@@ -29,4 +29,11 @@ class AssertCheckerTest < Minitest::Test
       checker.foo_bar
     end
   end
+
+  # noinspection RubyResolve
+  def test_respond_to
+    checker = Checker.new
+    assert(checker.respond_to?(:assert))
+    assert !(checker.respond_to? :foo)
+  end
 end

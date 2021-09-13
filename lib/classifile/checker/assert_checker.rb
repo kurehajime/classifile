@@ -36,6 +36,7 @@ module Classifile
     end
 
     def respond_to_missing?(sym, *)
+      @assert = Asserter.new if @assert.nil?
       if sym.to_s.include?("assert")
         @assert.respond_to?(sym) ? true : super
       else

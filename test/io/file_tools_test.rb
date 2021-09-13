@@ -20,4 +20,11 @@ class FileToolsTest < Minitest::Test
     Classifile::FileTools.move("./sandbox/from/test.txt", "./sandbox/to/foo/bar/test.txt", copy: true)
     assert File.exist?("./sandbox/to/foo/bar/test.txt")
   end
+
+  def test_fail_read_dsl
+    cap = capture_io do
+      Classifile::FileTools.read_dsl("./sandbox/dsl/not_found_dsl.rb")
+    end
+    assert_includes cap[0], "No such file or directory"
+  end
 end
