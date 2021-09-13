@@ -5,6 +5,7 @@
 Classifile is a tool for classifying files by Ruby DSL.
 
 ## Installation
+Ruby 3.0.0 or higher is required.
 
     $ gem install classifile
 
