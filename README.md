@@ -1,6 +1,6 @@
 # Classifile
 
-![status](https://github.com/kurehajime/classifile/actions/workflows/main_test.yml/badge.svg?branch=main)
+[![status](https://github.com/kurehajime/classifile/actions/workflows/main_test.yml/badge.svg?branch=main)](https://github.com/kurehajime/classifile/actions/workflows/main_test.yml)
 
 Classifile is a tool for classifying files by Ruby DSL.
 
