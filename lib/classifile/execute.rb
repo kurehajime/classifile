@@ -9,17 +9,21 @@ module Classifile
     # However, it does not actually move the file,
     # but outputs the mv command as a string.
     def test(dsl_path, from_paths, to_path)
-      classify(dsl_path, from_paths, to_path).each do |ft|
-        puts "mv \"#{ft.from}\"  \"#{ft.to}\" "
+      classify(dsl_path, from_paths, to_path).each do |result|
+        if result.is_a? MoveFile
+          puts "mv \"#{result.from}\"  \"#{result.to}\" "
+        end
       end
     end
 
     ##
     # Classify the files by DSL.
     def move(dsl_path, from_paths, to_path)
-      classify(dsl_path, from_paths, to_path).each do |ft|
-        FileTools.move(ft.from, ft.to)
-        ft.after_save_procs.each(&:call)
+      classify(dsl_path, from_paths, to_path).each do |result|
+        if result.is_a? MoveFile
+          FileTools.move(result.from, result.to)
+          result.after_save_procs.each(&:call)
+        end
       end
     end
 
@@ -27,9 +31,11 @@ module Classifile
     # Classify the files by DSL.
     # However, the original file will remain.
     def copy(dsl_path, from_paths, to_path)
-      classify(dsl_path, from_paths, to_path).each do |ft|
-        FileTools.move(ft.from, ft.to, copy: true)
-        ft.after_save_procs.each(&:call)
+      classify(dsl_path, from_paths, to_path).each do |result|
+        if result.is_a? MoveFile
+          FileTools.move(result.from, result.to, copy: true)
+          result.after_save_procs.each(&:call)
+        end
       end
     end
 

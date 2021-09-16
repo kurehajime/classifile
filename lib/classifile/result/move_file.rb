@@ -3,7 +3,7 @@
 module Classifile
   ##
   # Source and destination classes for file
-  class MoveFile < Classifile::Result
+  class MoveFile < Result
     attr_accessor :to
 
     def initialize(from, to)

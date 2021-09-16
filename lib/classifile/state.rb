@@ -34,7 +34,9 @@ module Classifile
 
       child = make_child dir_name
       child_run!(child, block) do
-        gotcha_child(child)
+        @gotcha = MoveFile.new(File.expand_path(@file.full_path),
+                               File.expand_path(File.join(child.to_path, child.save_name)))
+        sets_after_save_proc(child)
       end
     end
 
@@ -44,6 +46,16 @@ module Classifile
       child = make_child ""
       child_run!(child, block) do
         # Ignored
+      end
+    end
+
+    def del(dir_name, &block)
+      return if @gotcha
+
+      child = make_child dir_name
+      child_run!(child, block) do
+        @gotcha = RemoveFile.new(File.expand_path(@file.full_path))
+        sets_after_save_proc(child)
       end
     end
 
@@ -71,9 +83,7 @@ module Classifile
       # Ignored
     end
 
-    def gotcha_child(child)
-      @gotcha = MoveFile.new(File.expand_path(@file.full_path),
-                             File.expand_path(File.join(child.to_path, child.save_name)))
+    def sets_after_save_proc(child)
       child.after_save_syms.each do |sym|
         @gotcha.after_save_procs << child.method(sym)
       end

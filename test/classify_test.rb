@@ -18,8 +18,8 @@ class ClassifyTest < Minitest::Test
     target_file = Classifile::TargetFile.new("/tmp/dog.png")
     result = cfy.run(target_file, "/", &@proc)
 
-    assert !result.nil?
-    assert_includes result.to, "/Images/Favorites/Dogs" if result
+    assert_instance_of Classifile::MoveFile , result
+    assert_includes result.to, "/Images/Favorites/Dogs" if result.is_a? Classifile::MoveFile
   end
 
   def test_nest_dir
@@ -27,8 +27,8 @@ class ClassifyTest < Minitest::Test
     target_file = Classifile::TargetFile.new("/tmp/kitten.png")
     result = cfy.run(target_file, "/", &@proc)
 
-    assert !result.nil?
-    assert_includes result.to, "/Images/Favorites/Cats/Kittens" if result
+    assert_instance_of Classifile::MoveFile , result
+    assert_includes result.to, "/Images/Favorites/Cats/Kittens" if result.is_a? Classifile::MoveFile
   end
 
   def test_multi_names
@@ -36,8 +36,8 @@ class ClassifyTest < Minitest::Test
     target_file = Classifile::TargetFile.new("/tmp/penguin.png")
     result = cfy.run(target_file, "/", &@proc)
 
-    assert !result.nil?
-    assert_includes result.to, "/Images/Birds" if result
+    assert_instance_of Classifile::MoveFile , result
+    assert_includes result.to, "/Images/Birds" if result.is_a? Classifile::MoveFile
   end
 
   def test_empty_dir
@@ -45,8 +45,8 @@ class ClassifyTest < Minitest::Test
     target_file = Classifile::TargetFile.new("/tmp/dragon.png")
     result = cfy.run(target_file, "/", &@proc)
 
-    assert !result.nil?
-    assert_includes result.to, "/Images/Others" if result
+    assert_instance_of Classifile::MoveFile , result
+    assert_includes result.to, "/Images/Others" if result.is_a? Classifile::MoveFile
   end
 
   def test_year_dir
@@ -55,8 +55,8 @@ class ClassifyTest < Minitest::Test
     target_file.atime = Time.local(1999, 11, 21, 12, 34, 56, 7)
     result = cfy.run(target_file, "/", &@proc)
 
-    assert !result.nil?
-    assert_includes result.to, "/Documents/1999" if result
+    assert_instance_of Classifile::MoveFile , result
+    assert_includes result.to, "/Documents/1999" if result.is_a? Classifile::MoveFile
   end
 
   def test_group
@@ -65,8 +65,8 @@ class ClassifyTest < Minitest::Test
     target_file.atime = Time.local(1999, 11, 21, 12, 34, 56, 7)
     result = fs.run(target_file, "/", &@proc)
 
-    assert !result.nil?
-    assert_includes result.to, "/1999" if result
+    assert_instance_of Classifile::MoveFile , result
+    assert_includes result.to, "/1999" if result.is_a? Classifile::MoveFile
   end
 
   def test_can_not_save
@@ -82,7 +82,7 @@ class ClassifyTest < Minitest::Test
     target_file = Classifile::TargetFile.new("/tmp/hello.md")
     result = cfy.run(target_file, "/", &@proc)
 
-    assert !result.nil?
+    assert_instance_of Classifile::MoveFile , result
     assert_equal 1, result.after_save_procs.length
   end
 end
