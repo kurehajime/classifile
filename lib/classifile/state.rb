@@ -33,21 +33,18 @@ module Classifile
       return if @gotcha
 
       child = make_child dir_name
-      child.instance_exec(@file, &block)
-
-      if child.gotcha
-        @gotcha = child.gotcha
-      else
-        raise Failed if dir_name.empty? || child.empty?
-
+      child_run!(child, block) do
         gotcha_child(child)
       end
-    rescue Failed
-      # Ignored
     end
 
     def group(_group_name = "", &block)
-      dir("", &block)
+      return if @gotcha
+
+      child = make_child ""
+      child_run!(child, block) do
+        # Ignored
+      end
     end
 
     def empty_dir!
@@ -59,6 +56,20 @@ module Classifile
     end
 
     private
+
+    def child_run!(child, proc)
+      child.instance_exec(@file, &proc)
+
+      if child.gotcha
+        @gotcha = child.gotcha
+      else
+        raise Failed if child.empty?
+
+        yield
+      end
+    rescue Failed
+      # Ignored
+    end
 
     def gotcha_child(child)
       @gotcha = FromTo.new(File.expand_path(@file.full_path),
