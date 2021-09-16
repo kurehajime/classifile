@@ -60,3 +60,7 @@ dir "Markdown" do |_file|
     puts "Please read #{file.to_path}"
   end
 end
+
+del do
+  end_with? ".tmp"
+end

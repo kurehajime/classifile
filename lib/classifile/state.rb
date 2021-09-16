@@ -49,10 +49,10 @@ module Classifile
       end
     end
 
-    def del(dir_name, &block)
+    def del(&block)
       return if @gotcha
 
-      child = make_child dir_name
+      child = make_child ""
       child_run!(child, block) do
         @gotcha = RemoveFile.new(File.expand_path(@file.full_path))
         sets_after_save_proc(child)
