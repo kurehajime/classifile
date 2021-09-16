@@ -34,7 +34,7 @@ module Classifile
     end
 
     ##
-    # Classify files by DSL and return an array of FromTo classes.
+    # Classify files by DSL and return an array of MoveFile classes.
     def classify(dsl_path, from_paths, to_path)
       arr = []
       dsl = FileTools.read_dsl(dsl_path)

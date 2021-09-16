@@ -72,8 +72,8 @@ module Classifile
     end
 
     def gotcha_child(child)
-      @gotcha = FromTo.new(File.expand_path(@file.full_path),
-                           File.expand_path(File.join(child.to_path, child.save_name)))
+      @gotcha = MoveFile.new(File.expand_path(@file.full_path),
+                             File.expand_path(File.join(child.to_path, child.save_name)))
       child.after_save_syms.each do |sym|
         @gotcha.after_save_procs << child.method(sym)
       end
