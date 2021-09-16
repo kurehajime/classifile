@@ -20,6 +20,7 @@ class ExecuteTest < Minitest::Test
       assert_includes std[0], "sandbox/to/Markdown/hello.md"
       assert_match %r{to/Documents/\d\d\d\d/test.txt}, std[0]
       assert_match %r{to/Documents/\d\d\d\d/xyz.txt}, std[0]
+      assert_match %r{rm.*/remove\.tmp}, std[0]
       assert_equal "", std[1] # no error
     end
   end
@@ -31,6 +32,7 @@ class ExecuteTest < Minitest::Test
       end
     end
     assert File.exist?("./sandbox/to/Markdown/hello.md")
+    assert File.exist?("./sandbox/from/remove.tmp")
   end
 
   def test_execute_move
@@ -42,5 +44,6 @@ class ExecuteTest < Minitest::Test
     end
     assert File.exist?("./sandbox/to/Markdown/hello.md")
     assert !File.exist?("./sandbox/temp/hello.md")
+    assert !File.exist?("./sandbox/temp/remove.tmp")
   end
 end

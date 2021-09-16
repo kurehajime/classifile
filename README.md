@@ -124,6 +124,18 @@ end
 
 `dog.png -> /Dogs/dog.png`
 
+#### del block
+
+`del` block deletes the file.
+
+```ruby
+del do
+   end_with? ".tmp"
+end
+```
+
+`temp.tmp  will be deleted.`
+
 ### Check methods
 
 The check method checks if the file should be stored in that directory.

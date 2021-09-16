@@ -10,9 +10,8 @@ module Classifile
     # but outputs the mv command as a string.
     def test(dsl_path, from_paths, to_path)
       classify(dsl_path, from_paths, to_path).each do |result|
-        if result.is_a? MoveFile
-          puts "mv \"#{result.from}\"  \"#{result.to}\" "
-        end
+        puts "mv \"#{result.from}\"  \"#{result.to}\" " if result.is_a? MoveFile
+        puts "rm \"#{result.from}\" " if result.is_a? RemoveFile
       end
     end
 
@@ -22,6 +21,10 @@ module Classifile
       classify(dsl_path, from_paths, to_path).each do |result|
         if result.is_a? MoveFile
           FileTools.move(result.from, result.to)
+          result.after_save_procs.each(&:call)
+        end
+        if result.is_a? RemoveFile
+          FileUtils.remove(result.from)
           result.after_save_procs.each(&:call)
         end
       end
@@ -36,6 +39,7 @@ module Classifile
           FileTools.move(result.from, result.to, copy: true)
           result.after_save_procs.each(&:call)
         end
+        result.after_save_procs.each(&:call) if result.is_a? RemoveFile
       end
     end
 

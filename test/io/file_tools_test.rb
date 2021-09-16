@@ -10,9 +10,9 @@ class FileToolsTest < Minitest::Test
   end
 
   def test_get_file_list
-    assert Classifile::FileTools.get_file_list("./sandbox/from/*")[1].include?("/sandbox/from/test.txt")
-    assert Classifile::FileTools.get_file_list("./sandbox/from")[1].include?("/sandbox/from/test.txt")
-    assert Classifile::FileTools.get_file_list("./sandbox/from/")[1].include?("/sandbox/from/test.txt")
+    assert Classifile::FileTools.get_file_list("./sandbox/from/*")[2].include?("/sandbox/from/test.txt")
+    assert Classifile::FileTools.get_file_list("./sandbox/from")[2].include?("/sandbox/from/test.txt")
+    assert Classifile::FileTools.get_file_list("./sandbox/from/")[2].include?("/sandbox/from/test.txt")
     assert Classifile::FileTools.get_file_list("./sandbox/from/test.txt")[0].include?("/sandbox/from/test.txt")
   end
 
